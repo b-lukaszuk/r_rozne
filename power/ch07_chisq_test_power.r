@@ -1,5 +1,6 @@
 # table 7.2.1, page 219 from the book by Cohen
-## tab <- as.data.frame(matrix(data=c(22, 35, 3, 23, 10, 7), nrow=2, ncol=3, byrow=T))
+## tab <- as.data.frame(matrix(data=c(22, 35, 3, 23, 10, 7),
+##                             nrow=2, ncol=3, byrow=T))
 ## colnames(tab) <- c("dem", "rep", "ind")
 ## rownames(tab) <- c("men", "women")
 
@@ -15,7 +16,7 @@ getExpVals <- function(contingencyTable) {
     sumOfRows <- rowSums(contingencyTable)
     sumOfCols <- colSums(contingencyTable)
 
-    shape = dim(contingencyTable)
+    shape <- dim(contingencyTable)
 
     for(r in 1:shape[1]){
         for(c in 1:shape[2]){
@@ -31,7 +32,7 @@ flattenByCol <- function(df) {
     result <- numeric(shape[1] * shape[2])
     startInd <- 1
     endInd <- startInd + (shape[1] - 1)
-    for(i in 1:dim(df)[2]) {
+    for(i in 1:shape[2]) {
         result[startInd:endInd] <- df[, i]
         startInd <- endInd + 1
         endInd <- startInd + (shape[1] - 1)
@@ -49,8 +50,8 @@ getW <- function(contingencyTable) {
     p0s <- flattenByCol(p0s)
     pAs <- flattenByCol(pAs)
     diffs <- pAs - p0s
-    diffSquared <- diffs^2
-    fractions <- diffSquared/p0s
+    diffsSquared <- diffs^2
+    fractions <- diffsSquared/p0s
     w <- sqrt(sum(fractions))
     return(w)
 }
@@ -58,6 +59,6 @@ getW <- function(contingencyTable) {
 getDf <- function(contingencyTable) {
     nOfRows = nrow(contingencyTable)
     nOfCols = ncol(contingencyTable)
-    # (nrows - 1) * (ncols - 1)
+    # df = (nrows - 1) * (ncols - 1)
     return((nOfRows - 1) * (nOfCols - 1))
 }
